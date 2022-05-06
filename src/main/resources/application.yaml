@@ -1,0 +1,11 @@
+spring:
+  kafka:
+    producer:
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      group-id: kompuuter
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+
+gk:
+  kafka:
+    topic: first-topic

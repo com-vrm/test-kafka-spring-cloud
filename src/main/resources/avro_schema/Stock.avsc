@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "Stock",
+  "namespace": "com.vrm.test.kafka.dto",
+  "fields": [
+    {
+      "name": "symbol",
+      "type": "string",
+      "default": null
+    },
+    {
+      "name": "price",
+      "type": "double",
+      "default": null
+    }
+  ]
+}
