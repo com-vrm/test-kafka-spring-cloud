@@ -1,8 +1,9 @@
 package com.vrm.test.kafka;
 
-import com.vrm.test.kafka.consumer.KafkaConsumer;
-import com.vrm.test.kafka.producer.KafkaProducer;
+import com.vrm.test.kafka.consumer.StockConsumer;
+import com.vrm.test.kafka.producer.StockProducer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
@@ -40,9 +41,9 @@ public class KafkaTest {
     public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
 
     @Autowired
-    private KafkaProducer producer;
+    private StockProducer producer;
     @Autowired
-    private KafkaConsumer consumer;
+    private StockConsumer consumer;
 
     @Value("${gk.kafka.topic}")
     private String topic;
@@ -74,6 +75,7 @@ public class KafkaTest {
             conf.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
             conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
             conf.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
+            conf.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http:://localhost:8081");
             return new DefaultKafkaProducerFactory<>(conf);
         }
 

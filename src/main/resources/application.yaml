@@ -3,9 +3,15 @@ spring:
     producer:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     consumer:
-      group-id: kompuuter
+      group-id: stock-group
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    properties:
+      schema.registry.url: http://localhost:8081
 
-gk:
+testapp:
   kafka:
-    topic: first-topic
+    topic:
+      stock:
+        name: stonks-topic
+        partitions: 1
+        replication: 1
