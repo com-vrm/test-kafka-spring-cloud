@@ -16,7 +16,7 @@ public class StockConsumer implements Consumer<Stock> {
     @Override
     @KafkaListener(topics = "${testapp.kafka.topic.stock.name}")
     public void consume(ConsumerRecord<String, Stock> record) {
-        log.info("Consumed: {}", record.value());
+        log.info("Consumed: {}={}", record.key(), record.value());
     }
 
 }
