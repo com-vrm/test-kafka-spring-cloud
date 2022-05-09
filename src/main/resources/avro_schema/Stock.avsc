@@ -5,13 +5,11 @@
   "fields": [
     {
       "name": "symbol",
-      "type": "string",
-      "default": null
+      "type": "string"
     },
     {
       "name": "price",
-      "type": "double",
-      "default": null
+      "type": "double"
     }
   ]
 }
