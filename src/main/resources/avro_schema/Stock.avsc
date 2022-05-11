@@ -10,6 +10,11 @@
     {
       "name": "price",
       "type": "double"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "default": -1
     }
   ]
 }

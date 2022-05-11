@@ -18,7 +18,12 @@ public class StockController {
 
     @RequestMapping("stock/add/{symbol}/{price}")
     public void addStock(@PathVariable String symbol, @PathVariable double price) {
-        Stock stock = new Stock(symbol, price);
+        Stock stock = Stock.newBuilder()
+                .setSymbol(symbol)
+                .setPrice(price)
+                .setTimestamp(System.currentTimeMillis())
+                .build();
+
         stockProducer.produce(stock);
     }
 
