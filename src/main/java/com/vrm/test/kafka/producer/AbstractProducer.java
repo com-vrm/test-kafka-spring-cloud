@@ -19,7 +19,6 @@ public abstract class AbstractProducer<K, V> implements Producer<V> {
     protected final KeyFactory<K> keyFactory;
 
     @Override
-
     public void produce(V v) {
         ListenableFuture<SendResult<K, V>> future = template.send(topic, keyFactory.nextKey(), v);
         future.addCallback(
