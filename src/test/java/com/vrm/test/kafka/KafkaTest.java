@@ -2,8 +2,6 @@ package com.vrm.test.kafka;
 
 import com.vrm.test.kafka.consumer.StockConsumer;
 import com.vrm.test.kafka.producer.StockProducer;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
-import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
@@ -17,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.KafkaContainer;
@@ -25,8 +24,6 @@ import org.testcontainers.utility.DockerImageName;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author taaviv @ 06.05.22
@@ -74,8 +71,7 @@ public class KafkaTest {
             Map<String, Object> conf = new HashMap<>();
             conf.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
             conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
-            conf.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-            conf.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http:://localhost:8081");
+            conf.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
             return new DefaultKafkaProducerFactory<>(conf);
         }
 

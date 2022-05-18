@@ -1,17 +1,22 @@
 spring:
+
   kafka:
+    streams:
+      application-id: ${spring.application.name}
     producer:
-      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
       group-id: stock-group
-      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-    properties:
-      schema.registry.url: http://localhost:8081
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.vrm.test.*
+    bootstrap-servers: localhost:9092
 
 testapp:
   kafka:
     topic:
       stock:
-        name: stonks-topic
+        name: json-stonks-topic
         partitions: 1
         replication: 1
